@@ -42,3 +42,56 @@ void INSERTarc(Graph g, int x, int w){ // quer inserir arc de x até w
     g->adj[x] = NEWnode( w, g->adj[x]); // crio o novo nó
     g->M++;
 }
+
+
+int main (){
+
+    // ler os n - numero de cidade - ; m - numero de locais qeu juliano esteve - j - qtd de locais qeu qeur saber se juliano esteve
+    int n,m,j;
+    scanf("%d%d%d", &n, &m, &j);
+
+    // adaptação - guardo em um vetor todos marcados como 0
+    // se juliano estiver lá, marco como 1 e para todos os vizinhos dele de forma instantânea, então quando for pegar a resposta 
+    // só vejo no vetor se  foi visitado ou n
+
+    Graph grafo = GRAPHinit(n);
+
+    for(int i = 0; i <n ; i++){
+        int k;
+        scanf("%d", &k);
+
+        while (k){
+            int w;
+            scanf("%d", &w);
+            INSERTarc(grafo, i, w);
+            k--;
+        }
+        
+    }
+
+    int visitado[n];
+
+    for ( int i = 0; i <n; i ++){
+        visitado[i] = 0 ;
+    }
+
+    for ( int i = 0; i <m; i ++){
+        int k;
+        scanf("%d", k);
+        visitado[k] = 1;
+        for(link a = grafo->adj[k]; a!=NULL; a = a->prox){
+            visitado[a->v] =1;
+        }
+    }
+
+    for (int i = 0; i<j; i++){
+        int k;
+        scanf("%d", &k);
+        if(visitado[k]){
+            printf("Eu vou estar la\n");
+        }
+        else printf("Nao vou estar la\n");
+    }
+
+    return 0;
+}
