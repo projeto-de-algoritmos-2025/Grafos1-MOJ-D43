@@ -46,9 +46,10 @@ void INSERTarc(Graph g, int x, int w){ // quer inserir arc de x até w
 
 int main (){
 
-    // ler os n - numero de cidade - ; m - numero de locais qeu juliano esteve - j - qtd de locais qeu qeur saber se juliano esteve
+    // ler os n - numero de cidade - ; m - numero de locais que juliano esteve ; j - qtd de locais que quer saber se juliano vai estar
     int n,m,j;
     scanf("%d%d%d", &n, &m, &j);
+    int *visitado = (int*)calloc(n, sizeof(int));
     
     // adaptação - guardo em um vetor todos marcados como 0
     // se juliano estiver lá, marco como 1 e para todos os vizinhos dele de forma instantânea, então quando for pegar a resposta 
@@ -56,6 +57,7 @@ int main (){
 
     Graph grafo = GRAPHinit(n);
 
+    // m + n - insere os nós para todas as arestas
     for(int i = 0; i <n ; i++){
         int k;
         scanf("%d", &k);
@@ -66,15 +68,9 @@ int main (){
             INSERTarc(grafo, i, w);
             k--;
         }
-        
     }
 
-    int *visitado = malloc(n * sizeof(int));
-
-    for ( int i = 0; i <n; i ++){
-        visitado[i] = 0 ;
-    }
-
+    // agora leio os m locais que juliano esteve
     for ( int i = 0; i <m; i ++){
         int k;
         scanf("%d", &k);
@@ -84,6 +80,7 @@ int main (){
         }
     }
 
+    // agora leio os j locais que quero saber se juliano vai estar
     for (int i = 0; i<j; i++){
         int k;
         scanf("%d", &k);
