@@ -28,7 +28,7 @@ Graph GRAPHinit(int v){ // onde v é a qtd de vertices
     Graph g = malloc(sizeof(struct graph));
     g->N = v;
     g->M = 0; 
-    g->adj = malloc(v*sizeof(link));
+    g->adj = calloc(v, sizeof(link));
     for (int i = 0; i<v; i++){
         g->adj[i] = NULL;
     }
@@ -43,13 +43,33 @@ void INSERTarc(Graph g, int x, int w){ // quer inserir arc de x até w
     g->M++;
 }
 
+void freeGraph(Graph g) {
+    for (int i = 0; i < g->N; i++) {
+        link a = g->adj[i];
+        while (a) {
+            link tmp = a;
+            a = a->prox;
+            free(tmp);
+        }
+    }
+    free(g->adj);
+    free(g);
+}
+
+void marcarVisitados(Graph grafo, bool *visitado, int k) {
+    visitado[k] = true;
+    for (link a = grafo->adj[k]; a != NULL; a = a->prox) {
+        visitado[a->v] = true;
+    }
+}
+
 
 int main (){
 
     // ler os n - numero de cidade - ; m - numero de locais que juliano esteve ; j - qtd de locais que quer saber se juliano vai estar
     int n,m,j;
     scanf("%d%d%d", &n, &m, &j);
-    int *visitado = (int*)calloc(n, sizeof(int));
+    bool *visitado = (bool*)calloc(n, sizeof(bool));
     
     // adaptação - guardo em um vetor todos marcados como 0
     // se juliano estiver lá, marco como 1 e para todos os vizinhos dele de forma instantânea, então quando for pegar a resposta 
@@ -62,11 +82,10 @@ int main (){
         int k;
         scanf("%d", &k);
 
-        while (k){
+        while (k--){
             int w;
             scanf("%d", &w);
             INSERTarc(grafo, i, w);
-            k--;
         }
     }
 
@@ -74,10 +93,7 @@ int main (){
     for ( int i = 0; i <m; i ++){
         int k;
         scanf("%d", &k);
-        visitado[k] = 1;
-        for(link a = grafo->adj[k]; a!=NULL; a = a->prox){
-            visitado[a->v] =1;
-        }
+        marcarVisitados(grafo, visitado, k);
     }
 
     // agora leio os j locais que quero saber se juliano vai estar
@@ -91,5 +107,6 @@ int main (){
     }
 
     free(visitado);
+    freeGraph(grafo);
     return 0;
 }
