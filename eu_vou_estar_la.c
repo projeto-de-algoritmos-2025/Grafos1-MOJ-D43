@@ -49,7 +49,7 @@ int main (){
     // ler os n - numero de cidade - ; m - numero de locais qeu juliano esteve - j - qtd de locais qeu qeur saber se juliano esteve
     int n,m,j;
     scanf("%d%d%d", &n, &m, &j);
-
+    
     // adaptação - guardo em um vetor todos marcados como 0
     // se juliano estiver lá, marco como 1 e para todos os vizinhos dele de forma instantânea, então quando for pegar a resposta 
     // só vejo no vetor se  foi visitado ou n
@@ -69,7 +69,7 @@ int main (){
         
     }
 
-    int visitado[n];
+    int *visitado = malloc(n * sizeof(int));
 
     for ( int i = 0; i <n; i ++){
         visitado[i] = 0 ;
@@ -77,7 +77,7 @@ int main (){
 
     for ( int i = 0; i <m; i ++){
         int k;
-        scanf("%d", k);
+        scanf("%d", &k);
         visitado[k] = 1;
         for(link a = grafo->adj[k]; a!=NULL; a = a->prox){
             visitado[a->v] =1;
@@ -93,5 +93,6 @@ int main (){
         else printf("Nao vou estar la\n");
     }
 
+    free(visitado);
     return 0;
 }
