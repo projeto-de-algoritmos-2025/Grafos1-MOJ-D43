@@ -95,6 +95,20 @@ int main(){
     }
     printf("%d\n", sum);
 
+    int id, numMudanca, aux;
+
+    scanf("%d", &numMudanca);
+
+
+    for(int h = 0; h<numMudanca; h ++){
+        sum =0;
+        scanf("%d%d", &id, &aux );
+        salario[id] = aux;
+        for(int i = 1; i<(numFunc+1); i++){
+            sum = sum +  countInsatisfeito(grafo, i, salario);
+        }
+        printf("%d\n", sum);
+    }
 
     
     
