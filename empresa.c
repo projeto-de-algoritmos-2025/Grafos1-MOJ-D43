@@ -23,6 +23,9 @@ Graph GRAPHinit(int v){
     g->N = v;
     g->M = 0;
     g->adj = malloc(v*sizeof(struct node));
+    for (int i = 0; i < v; i++){
+        g->adj[i] = NULL;
+    }
     return g;
 }
 
@@ -54,6 +57,18 @@ void freeGraph(Graph g) {
     free(g);
 }
 
+int countInsatisfeito(Graph grafo, int x, int *salario){
+    int count = 0;
+    for(link a = grafo->adj[x]; a!=NULL; a = a->prox){
+        if (salario[x]< salario[a->vertice] ) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+
+
 int main(){
     // numFunc é 1-based, tenho que tratar isso
     int numFunc, numAlt, numChefe, numSalario;
@@ -62,13 +77,26 @@ int main(){
 
     int *pa = calloc((numFunc+1), sizeof(int)); // armazenando o chefe
     int *salario = calloc((numFunc+1), sizeof(int)); // armazenando o salario
+    // int *insatisfeito = calloc((numFunc+1), sizeof(int)); // armazenando o salario
 
     Graph grafo = GRAPHinit(numFunc+1);
+        // printf("antes do loop\n");
 
-    scanf("%d%d", pa[1], salario[1]);
-
-    for(int i = 2; i <(numFunc+1); i ++){
-        scanf("%d%d", pa[i], salario[i]);
+    for(int i = 1 ; i < (numFunc+1) ; i ++){ 
+        // printf("dentro do loop\n");
+        scanf("%d%d", &pa[i], &salario[i]);
         INSERTarc(grafo, pa[i] , i);
     }
+        // printf("depois do loop\n");
+
+    int sum=0;
+    for(int i = 1; i<(numFunc+1); i++){
+        sum = sum +  countInsatisfeito(grafo, i, salario);
+    }
+    printf("%d\n", sum);
+
+
+    
+    
+    return 0;
 }
