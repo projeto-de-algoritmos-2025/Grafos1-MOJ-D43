@@ -24,9 +24,8 @@ Sobre a realização do trabalho, cada exercício contém seu código resposta, 
 
 Link para a apresentação:
 
--[Clique aqui](https://youtu.be/3-C7zIUI2iI?si=_cWXf61Cs9fC5VHY)
+- [Clique aqui](https://youtu.be/3-C7zIUI2iI?si=_cWXf61Cs9fC5VHY)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/3-C7zIUI2iI?si=1QBkOG3fNX9ctdU3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## Screenshots
 
